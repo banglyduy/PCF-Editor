@@ -7,9 +7,11 @@ import { DirectionalHint, OverflowSet, TooltipHost } from '@fluentui/react';
 import MenuItem from './MenuItem';
 import useEditorTransaction from '../../hooks/useEditorTransaction';
 import { useEditorContext } from '../../context/EditorProvider';
+import { TextAlignFeature, TextColor } from '../Features';
+import { IMenuItemProps } from '../../Models';
 
 export const EditorCommandBar = () => {
-  const [barItems, setbarItems] = React.useState<ICommandBarItemProps[]>([]);
+  const [barItems, setbarItems] = React.useState<IMenuItemProps[]>([]);
   const editorCtx = useEditorContext();
   React.useLayoutEffect(() => {
     if(editorCtx) setbarItems(_items(editorCtx.editor));
@@ -49,9 +51,11 @@ const onRenderOverflowButton = (overflowItems: any[] | undefined) => {
   );
 };
 
-function _items(editor: Editor): ICommandBarItemProps[] {
-  let result: ICommandBarItemProps[] = [
+function _items(editor: Editor): IMenuItemProps[] {
+  let result: IMenuItemProps[] = [
     ...TextRoleFormatting.toolbarItems(editor),
+    ...TextAlignFeature.toolbarItems(editor),
+    ...TextColor.toolbarItems(editor),
     {
       key: 'bold',
       text: 'Bold',

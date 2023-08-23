@@ -2,11 +2,15 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import * as React from 'react';
 import { createContext, useContext } from "react";
-import { TextAlignFeature } from '../components/Features';
+import { TextAlignFeature, TextColor } from '../components/Features';
+import Color from '@tiptap/extension-color';
+import TextStyle from '@tiptap/extension-text-style'
 
 const extensions = [
   StarterKit,
-  TextAlignFeature.extensions
+  TextAlignFeature.extensions,
+  Color,
+  TextStyle
 ]
 
 

@@ -48,15 +48,18 @@ const textRole = (editor: Editor) =>{
 
 const FormattingToolbarItem = (editor: Editor): IMenuItemProps[] => {
     return [{
-        key: 'textRole',
-        text: textRole(editor),
+        key: 'table',
+        text: 'Table',
+        iconProps: { iconName: 'Table' },
+        iconOnly: true,
         menuProps: {
             // Must specify the menu item type for submenus too!
             contextualMenuItemAs: CustomMenuItem,
             // Styles are passed through to menu items here
             styles: menuStyles,
             items: _styleItems(editor),
-        }
+        },
+        onClick: () => {}
     }];
 }
 
