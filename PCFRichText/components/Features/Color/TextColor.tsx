@@ -6,30 +6,15 @@ import * as React from 'react';
 import { Color } from '@tiptap/extension-color';
 import { IFeatures, IMenuItemProps } from "../../../Models";
 import { ActionButton, FocusZoneDirection, HighContrastSelector, IButtonStyles, IconButton, mergeStyleSets } from "@fluentui/react";
+import { useEditorContext } from "../../../context/EditorProvider";
 
-const colors = ["BFEDD2",
-    "FBEEB8",
-    "F8CAC6",
-    "ECCAFA",
-    "C2E0F4",
-    "2DC26B",
-    "F1C40F",
-    "E03E2D",
-    "B96AD9",
-    "3598DB",
-    "169179",
-    "E67E23",
-    "BA372A",
-    "843FA1",
-    "236FA1",
-    "ECF0F1",
-    "CED4D9",
-    "95A5A6",
-    "7E8C8D",
-    "34495E",
-    "000000"]
 
-const ColorButton = (item: IMenuItemProps,editor: Editor) => {
+const colors = ["BFEDD2", "FBEEB8", "F8CAC6", "ECCAFA", "C2E0F4", "2DC26B", "F1C40F",
+    "E03E2D", "B96AD9", "3598DB", "169179", "E67E23", "BA372A", "843FA1",
+    "236FA1", "ECF0F1", "CED4D9", "95A5A6", "7E8C8D", "34495E", "000000"]
+
+const ColorButton = (props: IMenuItemProps) => {
+    let EditorCtx = useEditorContext();
     let menuitems: any[] = [];
     colors.map((color) => menuitems.push({
         key: color, text: `#${color}`,
@@ -39,7 +24,8 @@ const ColorButton = (item: IMenuItemProps,editor: Editor) => {
                 className="ms-ContextualMenu-link"
                 data-is-focusable
                 onClick={() => {
-                    editor.chain().focus().setColor(`#${color}`).run();
+                    EditorCtx?.editor.chain().focus().setColor(`#${color}`).run();
+                    EditorCtx?.setColor(`#${color}`);
                     dismissMenu();
                 }}
             >
@@ -49,7 +35,7 @@ const ColorButton = (item: IMenuItemProps,editor: Editor) => {
 
     return <IconButton
         split
-        iconProps={{ iconName: "FontColorA" }}
+        iconProps={{ iconName: "FontColor" }}
         styles={customSplitButtonStyles}
         menuProps={{
             className: classNames.menu,
@@ -57,29 +43,27 @@ const ColorButton = (item: IMenuItemProps,editor: Editor) => {
             items: menuitems
         }}
         ariaLabel="Text Color"
-        onClick={() => editor.chain().focus().unsetColor().run()}
+        onClick={() => EditorCtx?.editor.chain().focus().setColor(EditorCtx?.activeColor).run()}
     />
 };
 
-const FormattingToolbarItem = (editor: Editor): IMenuItemProps[] => {
-    return [{
-        key: 'textColor',
-        text: 'textColor',
-        iconOnly: true,
-        iconProps: { iconName: 'FontColor' },
-        onRender: (props: IMenuItemProps) => ColorButton(props,editor)
-    }];
-}
+const FormattingToolbarItem: IMenuItemProps[] = [{
+    key: 'textColor',
+    text: 'textColor',
+    iconOnly: true,
+    iconProps: { iconName: 'FontColorA' },
+    onRender: ColorButton
+}];
 
 const customSplitButtonStyles: IButtonStyles = {
     root: {
         selectors: {
-            ['ms-Button-flexContainer']: {borderBottom: '0.2rem solid #ffffff'}
+            ['ms-Button-flexContainer']: { borderBottom: '0.2rem solid #ffffff' }
         }
     },
     splitButtonMenuButton: { backgroundColor: 'white', width: 28, border: 'none' },
     splitButtonMenuIcon: { fontSize: '7px' },
-    splitButtonFlexContainer: {borderBottom: '0.2rem solid #ffffff'},
+    splitButtonFlexContainer: { borderBottom: '0.2rem solid #ffffff' },
     splitButtonDivider: { backgroundColor: '#c8c8c8', width: 1, right: 26, position: 'absolute', top: 4, bottom: 4 },
     splitButtonContainer: {
         selectors: {

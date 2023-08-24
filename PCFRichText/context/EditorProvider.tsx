@@ -16,19 +16,22 @@ const extensions = [
 
 export type EditorContextType = {
   editor: Editor;
+  activeColor: string;
+  setColor: any;
 };
 
-const EditorContext = createContext<EditorContextType | null>(null);
+const EditorContext = createContext<EditorContextType>({});
 const content = '<p>Hello World!</p>'
 
 const EditorProvider: React.FC = ({ children }) => {
+  const [activeColor, setColor] = React.useState("#ffffff");
   const [editor, setEditor] = React.useState(new Editor({
     extensions,
     content
   }));
 
   return (
-    <EditorContext.Provider value={{editor}}>
+    <EditorContext.Provider value={{ editor, activeColor, setColor }}>
       {children}
     </EditorContext.Provider>
   );
