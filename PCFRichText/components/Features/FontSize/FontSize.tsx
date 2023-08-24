@@ -39,8 +39,7 @@ const _styleItems = (editor: Editor): IContextualMenuItem[] => {
 const FormattingToolbarItem = (editor: Editor): ICommandBarItemProps[] => {
     return [{
         key: 'fontSize',
-        text: 'styles',
-        
+        text: 'styles'
     }];
 }
 

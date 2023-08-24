@@ -16,9 +16,7 @@ const TextEditor = () => {
     const editorCtx = useEditorContext();
 
     React.useLayoutEffect(() => {
-        if (editorCtx) {
-            htmlcontainer.current?.append(editorCtx.editor.options.element);
-        }
+        htmlcontainer.current?.append(editorCtx?.editor.options.element);
     }, [])
 
     return (
