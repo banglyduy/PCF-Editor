@@ -15,7 +15,9 @@ const colors = ["BFEDD2", "FBEEB8", "F8CAC6", "ECCAFA", "C2E0F4", "2DC26B", "F1C
 
 const ColorButton = (props: IMenuItemProps) => {
     let EditorCtx = useEditorContext();
+    const [activeColor,setColor] = React.useState("#ffffff");
     let menuitems: any[] = [];
+    menuitems.push({key: 'automatic', text: `Automatic`, onClick:() => EditorCtx?.editor.chain().focus().unsetColor().run()})
     colors.map((color) => menuitems.push({
         key: color, text: `#${color}`,
         className: classNames.item,
@@ -25,7 +27,7 @@ const ColorButton = (props: IMenuItemProps) => {
                 data-is-focusable
                 onClick={() => {
                     EditorCtx?.editor.chain().focus().setColor(`#${color}`).run();
-                    EditorCtx?.setColor(`#${color}`);
+                    setColor(`#${color}`);
                     dismissMenu();
                 }}
             >
@@ -43,7 +45,7 @@ const ColorButton = (props: IMenuItemProps) => {
             items: menuitems
         }}
         ariaLabel="Text Color"
-        onClick={() => EditorCtx?.editor.chain().focus().setColor(EditorCtx?.activeColor).run()}
+        onClick={() => EditorCtx?.editor.chain().focus().setColor(activeColor).run()}
     />
 };
 

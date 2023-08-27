@@ -6,15 +6,11 @@ import { Editor } from '@tiptap/core';
 import { DirectionalHint, OverflowSet, TooltipHost } from '@fluentui/react';
 import MenuItem from './MenuItem';
 import { useEditorTransaction } from '../../hooks';
-import { useEditorContext } from '../../context/EditorProvider';
 import { TextAlignFeature, TextColor, TextRoleFormatting, TableFormatting } from '../Features';
 import { IMenuItemProps } from '../../Models';
 
 export const EditorCommandBar = () => {
-  const [barItems, setbarItems] = React.useState<IMenuItemProps[]>([]);
-  React.useLayoutEffect(() => {
-    setbarItems(_items());
-  }, []);
+  const [barItems, setbarItems] = React.useState<IMenuItemProps[]>(_items());
   useEditorTransaction(() => {
     setbarItems(_items());
   })

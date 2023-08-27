@@ -5,6 +5,7 @@ import { EditorCommandBar } from './MenuBar/EditorMenu';
 import TextAlign from '@tiptap/extension-text-align';
 import { TextAlignFeature } from './Features';
 import { useEditorContext } from '../context/EditorProvider';
+import { useEditorCreate } from '../hooks';
 
 // define your extension array
 
@@ -13,11 +14,7 @@ import { useEditorContext } from '../context/EditorProvider';
 
 const TextEditor = () => {
     const htmlcontainer = React.useRef<HTMLHeadingElement>(null);
-    const editorCtx = useEditorContext();
-
-    React.useLayoutEffect(() => {
-        htmlcontainer.current?.append(editorCtx?.editor.options.element);
-    }, [])
+    useEditorCreate((editor) => htmlcontainer.current?.append(editor.options.element))
 
     return (
         <>

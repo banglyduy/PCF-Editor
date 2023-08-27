@@ -2,36 +2,45 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import * as React from 'react';
 import { createContext, useContext } from "react";
-import { TextAlignFeature, TextColor } from '../components/Features';
+import { TextAlignFeature } from '../components/Features';
 import Color from '@tiptap/extension-color';
 import TextStyle from '@tiptap/extension-text-style'
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableHeader from '@tiptap/extension-table-header';
+import TableCell from '@tiptap/extension-table-cell';
 
 const extensions = [
   StarterKit,
   TextAlignFeature.extensions,
   Color,
-  TextStyle
+  TextStyle,
+  Table.configure({
+    resizable: true,
+    allowTableNodeSelection: true,
+  }),
+  TableRow,
+  TableHeader,
+  TableCell
 ]
 
 
 export type EditorContextType = {
   editor: Editor;
-  activeColor: string;
-  setColor: any;
 };
 
-const EditorContext = createContext<EditorContextType>({});
-const content = '<p>Hello World!</p>'
+const EditorContext = createContext<EditorContextType | null>(null);
+const content = `Content
+`
 
 const EditorProvider: React.FC = ({ children }) => {
-  const [activeColor, setColor] = React.useState("#ffffff");
   const [editor, setEditor] = React.useState(new Editor({
     extensions,
     content
   }));
 
   return (
-    <EditorContext.Provider value={{ editor, activeColor, setColor }}>
+    <EditorContext.Provider value={{editor}}>
       {children}
     </EditorContext.Provider>
   );
