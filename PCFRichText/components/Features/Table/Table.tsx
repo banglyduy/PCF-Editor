@@ -10,13 +10,13 @@ import { IFeatures, IMenuItemProps } from "../../../Models";
 import { useEditorContext } from "../../../context/EditorProvider";
 import { useConst } from '@fluentui/react-hooks';
 import { ContextualMenuItemType, IContextualMenuProps } from '@fluentui/react/lib/ContextualMenu';
-import Table from '@tiptap/extension-table'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import TableRow from '@tiptap/extension-table-row'
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 import { customSplitButtonStyles, classNames } from './Table.styles';
 import { useBoolean } from '@fluentui/react-hooks'
-import TableDialog from "./TableDialog";
+import TableDialog from "../../Dialogs/TableDialog";
 
 const CustomMenuItem: React.FunctionComponent<IContextualMenuItemProps> = props => {
     // Due to ContextualMenu implementation quirks, passing styles or onClick here doesn't work.
@@ -51,7 +51,7 @@ const TextButton = (item: IMenuItemProps) => {
                 },
                 {
                     key: 'delete',
-                    text: 'delete',
+                    text: 'Delete',
                     subMenuProps: {
                         focusZoneProps: { direction: FocusZoneDirection.bidirectional },
                         items: [

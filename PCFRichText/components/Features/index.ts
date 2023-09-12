@@ -3,5 +3,5 @@ import { TextAlignFeature } from "./TextAlign/TextAlign";
 
 export * from "./TextAlign/TextAlign";
 export * from "./Formatting/TextRole";
-export * from "./Color/TextColor";
+export * from "./TextColor/TextColor";
 export * from "./Table/Table";

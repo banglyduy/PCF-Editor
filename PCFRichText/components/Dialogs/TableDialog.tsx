@@ -1,8 +1,8 @@
 import { DefaultButton, Dialog, DialogFooter, DialogType, IModalProps, PrimaryButton, SpinButton, Stack } from '@fluentui/react';
-import { useBoolean, useId} from '@fluentui/react-hooks';
+import { useBoolean, useId } from '@fluentui/react-hooks';
 import * as React from 'react';
 
-export interface ITableDialogProps{
+export interface ITableDialogProps {
     hideDialog: boolean;
     toggleDialog: () => void;
     onCreate: (row: number, column: number) => void
@@ -18,17 +18,17 @@ const TableDialog = (props: ITableDialogProps) => {
     const [colNo, setColVal] = React.useState(0);
 
     const onRowChange = React.useCallback((event: React.SyntheticEvent<HTMLElement>, newValue?: string) => {
-      if (newValue !== undefined) {
-        // In reality this might have some additional validation or other special handling
-        setRowVal(Number(newValue));
-      }
+        if (newValue !== undefined) {
+            // In reality this might have some additional validation or other special handling
+            setRowVal(Number(newValue));
+        }
     }, []);
 
     const onColChange = React.useCallback((event: React.SyntheticEvent<HTMLElement>, newValue?: string) => {
-      if (newValue !== undefined) {
-        // In reality this might have some additional validation or other special handling
-        setColVal(Number(newValue));
-      }
+        if (newValue !== undefined) {
+            // In reality this might have some additional validation or other special handling
+            setColVal(Number(newValue));
+        }
     }, []);
 
     const modalProps: IModalProps = React.useMemo(
@@ -44,7 +44,7 @@ const TableDialog = (props: ITableDialogProps) => {
         type: DialogType.normal,
         title: 'Add Table',
         subText: 'Choose table size before add',
-    };  
+    };
 
     return (
         <Dialog
@@ -61,6 +61,7 @@ const TableDialog = (props: ITableDialogProps) => {
                     min={0}
                     max={20}
                     step={1}
+                    labelPosition={0}
                     onChange={onRowChange}
                     incrementButtonAriaLabel="Increase value by 1"
                     decrementButtonAriaLabel="Decrease value by 1"
@@ -72,6 +73,7 @@ const TableDialog = (props: ITableDialogProps) => {
                     min={0}
                     max={20}
                     step={1}
+                    labelPosition={0}
                     onChange={onColChange}
                     incrementButtonAriaLabel="Increase value by 1"
                     decrementButtonAriaLabel="Decrease value by 1"
@@ -79,7 +81,7 @@ const TableDialog = (props: ITableDialogProps) => {
             </Stack>
 
             <DialogFooter>
-                <PrimaryButton onClick={() => props.onCreate(colNo,rowNo)} text="Create" />
+                <PrimaryButton onClick={() => props.onCreate(rowNo, colNo)} text="Create" />
                 <DefaultButton onClick={props.toggleDialog} text="Cancel" />
             </DialogFooter>
         </Dialog>
