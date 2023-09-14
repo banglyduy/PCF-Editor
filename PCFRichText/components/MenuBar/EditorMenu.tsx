@@ -1,18 +1,16 @@
-import { CommandBar, ICommandBarItemProps } from '@fluentui/react/lib/CommandBar';
-import { CommandBarButton, IButtonProps } from '@fluentui/react/lib/Button';
+import { CommandBarButton} from '@fluentui/react/lib/Button';
 import * as React from 'react';
 import { Editor } from '@tiptap/core';
-//import { TextRoleFormatting } from "../Features/Formatting/TextRole";
 import { DirectionalHint, OverflowSet, TooltipHost } from '@fluentui/react';
 import MenuItem from './MenuItem';
 import { useEditorTransaction } from '../../hooks';
-import { TextAlignFeature, TextColor, TextRoleFormatting, TableFormatting } from '../Features';
+import { getMenuItems } from '../Features';
 import { IMenuItemProps } from '../../Models';
 
 export const EditorCommandBar = () => {
-  const [barItems, setbarItems] = React.useState<IMenuItemProps[]>(_items());
+  const [barItems, setbarItems] = React.useState<IMenuItemProps[]>(getMenuItems());
   useEditorTransaction(() => {
-    setbarItems(_items());
+    setbarItems(getMenuItems());
   })
   return (
     <OverflowSet
@@ -43,61 +41,4 @@ const onRenderOverflowButton = (overflowItems: any[] | undefined) => {
   );
 };
 
-function _items(): IMenuItemProps[] {
-  let result: IMenuItemProps[] = [
-    ...TextColor.toolbarItems,
-    ...TextAlignFeature.toolbarItems,
-    ...TextRoleFormatting.toolbarItems,
-    ...TableFormatting.toolbarItems,
-    {
-      key: 'bold',
-      text: 'Bold',
-      iconOnly: true,
-      iconProps: { iconName: 'Bold' },
-      onClick: (editor: Editor) => editor.chain().focus().toggleBold().run(),
-      activeCheck: 'bold'
-    },
-    {
-      key: 'italic',
-      text: 'Italic',
-      iconOnly: true,
-      iconProps: { iconName: 'Italic' },
-      onClick: (editor: Editor) => editor.chain().focus().toggleItalic().run(),
-      activeCheck: 'italic'
-    },
-    {
-      key: 'strike',
-      text: 'Strikethrough',
-      iconOnly: true,
-      iconProps: { iconName: 'Strikethrough' },
-      onClick: (editor: Editor) => editor.chain().focus().toggleStrike().run(),
-      activeCheck: 'strike'
-    },
-    {
-      key: 'bulletedlist',
-      text: 'Bulleted List',
-      iconOnly: true,
-      iconProps: { iconName: 'BulletedList' },
-      onClick: (editor: Editor) => editor.chain().focus().toggleBulletList().run(),
-      activeCheck: 'bulletList'
-    },
-    {
-      key: 'numberedlist',
-      text: 'NumberedList',
-      iconOnly: true,
-      iconProps: { iconName: 'NumberedList' },
-      onClick: (editor: Editor) => editor.chain().focus().toggleOrderedList().run(),
-      activeCheck: 'orderedList'
-    },
-    {
-      key: 'blockquote',
-      text: 'Blockquote',
-      iconOnly: true,
-      iconProps: { iconName: 'RightDoubleQuote' },
-      onClick: (editor: Editor) => editor.chain().focus().toggleBlockquote().run(),
-      activeCheck: 'blockquote'
-    }
-  ]
-  return result;
-}
 

@@ -2,28 +2,7 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import * as React from 'react';
 import { createContext, useContext } from "react";
-import { TextAlignFeature } from '../components/Features';
-import Color from '@tiptap/extension-color';
-import TextStyle from '@tiptap/extension-text-style'
-import Table from '@tiptap/extension-table';
-import TableRow from '@tiptap/extension-table-row';
-import TableHeader from '@tiptap/extension-table-header';
-import TableCell from '@tiptap/extension-table-cell';
-
-const extensions = [
-  StarterKit,
-  TextAlignFeature.extensions,
-  Color,
-  TextStyle,
-  Table.configure({
-    resizable: true,
-    allowTableNodeSelection: true,
-  }),
-  TableRow,
-  TableHeader,
-  TableCell
-]
-
+import { extensions } from '../components/Features';
 
 export type EditorContextType = {
   editor: Editor;
