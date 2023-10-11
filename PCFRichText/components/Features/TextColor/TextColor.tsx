@@ -15,7 +15,7 @@ const colors = ["BFEDD2", "FBEEB8", "F8CAC6", "ECCAFA", "C2E0F4", "2DC26B", "F1C
 
 const ColorButton = (props: IMenuItemProps) => {
     let EditorCtx = useEditorContext();
-    const [activeColor, setColor] = React.useState("#ffffff");
+    const [activeColor, setColor] = React.useState("#000000");
     let menuitems: any[] = [];
     menuitems.push({ key: 'automatic', text: `Automatic`, onClick: () => EditorCtx?.editor.chain().focus().unsetColor().run() })
     colors.map((color) => menuitems.push({
@@ -37,7 +37,12 @@ const ColorButton = (props: IMenuItemProps) => {
 
     return <IconButton
         split
-        iconProps={{ iconName: "FontColor" }}
+        iconProps={{
+            iconName: "FontColorA",
+            styles: {
+                root: {borderBottom: `2px solid ${activeColor}`}
+            }
+        }}
         styles={customSplitButtonStyles}
         menuProps={{
             className: classNames.menu,

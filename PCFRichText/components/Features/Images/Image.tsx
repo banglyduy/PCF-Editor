@@ -43,8 +43,9 @@ export const ImageFeature: IFeatures = {
     extensions: [
         Image.configure({
             HTMLAttributes: {
-                width: 600,
-                height: 'auto'
+                width: '100%',
+                height: 'auto',
+                class: 'ms-Image'
             },
             inline: true
         })

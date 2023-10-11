@@ -1,11 +1,12 @@
+import getEditorConfig from "./Util/utils";
 import PCFEditor from "./components/";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 
 export class PCFRichText implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
-    private notifyOutputChanged: () => void;
-
+    private _content: string;
+    private _notifyOutputChanged: () => void;
     /**
      * Empty constructor.
      */
@@ -23,7 +24,8 @@ export class PCFRichText implements ComponentFramework.ReactControl<IInputs, IOu
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
     ): void {
-        this.notifyOutputChanged = notifyOutputChanged;
+        context.mode.trackContainerResize(true);
+        this._notifyOutputChanged = notifyOutputChanged;
     }
 
     /**
@@ -32,8 +34,11 @@ export class PCFRichText implements ComponentFramework.ReactControl<IInputs, IOu
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
+        let editorConfig = getEditorConfig(context,this.notifyChanged);
         return React.createElement(
-            PCFEditor
+            PCFEditor,{
+                config: editorConfig
+            }
         );
     }
 
@@ -42,7 +47,12 @@ export class PCFRichText implements ComponentFramework.ReactControl<IInputs, IOu
      * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
      */
     public getOutputs(): IOutputs {
-        return { };
+        return { editorContent: this._content};
+    }
+
+    private notifyChanged = (content: string) =>{
+        this._content = content;
+        this._notifyOutputChanged();
     }
 
     /**
@@ -51,5 +61,6 @@ export class PCFRichText implements ComponentFramework.ReactControl<IInputs, IOu
      */
     public destroy(): void {
         // Add code to cleanup control if necessary
+        
     }
 }

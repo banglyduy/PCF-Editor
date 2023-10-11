@@ -19,7 +19,7 @@
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <property name="editorContent" display-name-key="Editor Content" description-key="Property_Desc_Key" of-type="Multiple" usage="bound" required="true" />
-    
+    <property name="isEditable" display-name-key="is Editable" description-key="IsEditable_Desc_Key" of-type="TwoOptions" usage="input" required="true" />
     <!--
       Property node's of-type attribute can be of-type-group attribute.
       Example:
